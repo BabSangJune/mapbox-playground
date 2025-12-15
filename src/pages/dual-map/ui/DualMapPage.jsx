@@ -35,7 +35,6 @@ export function DualMapPage() {
           options={{
             center: [126.978, 37.5665],
             zoom: 11,
-            style: 'mapbox://styles/mapbox/dark-v11',
           }}
         >
           <DeckGLOverlay>
@@ -51,7 +50,6 @@ export function DualMapPage() {
           options={{
             center: [129.075, 35.1796],
             zoom: 11,
-            style: 'mapbox://styles/mapbox/dark-v11',
           }}
         >
           <DeckGLOverlay>

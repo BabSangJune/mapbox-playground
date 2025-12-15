@@ -23,8 +23,8 @@ export const mapboxModule = {
 
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: options.style || 'mapbox://styles/mapbox/dark-v11',
-      center: options.center || [126.978, 37.5665],
+      style: options.style || 'mapbox://styles/lab021/cm0kdqjna001f01r52j0c6lx1',
+      center: options.center || [0, 0],
       zoom: options.zoom || 10,
       accessToken: import.meta.env.VITE_MAPBOX_TOKEN,
       ...options,

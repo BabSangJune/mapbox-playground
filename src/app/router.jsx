@@ -8,7 +8,7 @@ import {
 
 import * as styles from './router.css';
 
-import { HomePage, WeatherMapPage } from '@/pages';
+import { HomePage, WeatherMapPage, DualMapPage } from '@/pages';
 import { Header, Sidebar } from '@/widgets';
 
 // Root Route with Layout
@@ -38,8 +38,15 @@ const weatherMapRoute = createRoute({
   component: WeatherMapPage,
 });
 
+// Dual Map Route
+const dualMapRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dual-map',
+  component: DualMapPage,
+});
+
 // Route Tree
-const routeTree = rootRoute.addChildren([indexRoute, weatherMapRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, weatherMapRoute, dualMapRoute]);
 
 // Router Instance
 const router = createRouter({ routeTree });

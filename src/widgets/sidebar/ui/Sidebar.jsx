@@ -9,6 +9,7 @@ export function Sidebar() {
   const navItems = [
     { path: '/', icon: '🏠', label: 'Home' },
     { path: '/weather-map', icon: '🗺️', label: 'Weather Map' },
+    { path: '/dual-map', icon: '🌍', label: 'Dual Map' },
   ];
 
   return (

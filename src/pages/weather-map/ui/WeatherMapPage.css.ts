@@ -46,3 +46,27 @@ export const weatherMapPageNote = style({
   color: '#666',
   fontStyle: 'italic',
 });
+
+export const weatherMapPageControlButton = style({
+  padding: '8px 16px',
+  backgroundColor: '#1a1a1a',
+  color: '#fff',
+  border: '1px solid #333',
+  borderRadius: '4px',
+  cursor: 'pointer',
+  fontSize: '14px',
+  transition: 'all 0.2s ease',
+  ':hover': {
+    backgroundColor: '#2a2a2a',
+    borderColor: '#4a9eff',
+  },
+});
+
+export const weatherMapPageInfoBox = style({
+  padding: '8px 16px',
+  backgroundColor: 'rgba(26, 26, 26, 0.9)',
+  color: '#fff',
+  border: '1px solid #333',
+  borderRadius: '4px',
+  fontSize: '14px',
+});

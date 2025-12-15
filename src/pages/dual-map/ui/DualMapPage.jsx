@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { DeckGLOverlay } from '@/widgets/deckgl-overlay';
 import { MapViewer } from '@/widgets/map-viewer';
 
+import { MapControls } from '@/features/map-controls';
 import { WeatherLayer } from '@/features/weather-layer';
 
 import * as styles from './DualMapPage.css';
@@ -40,6 +41,21 @@ export function DualMapPage() {
           <DeckGLOverlay>
             <WeatherLayer data={seoulWeather} layerType="scatterplot" />
           </DeckGLOverlay>
+          <MapControls>
+            <MapControls.BottomLeft>
+              <button
+                className={`dual-map-page__control-button ${styles.dualMapPageControlButton}`}
+                onClick={() => console.log('서울 지도 리셋')}
+              >
+                🔄 리셋
+              </button>
+            </MapControls.BottomLeft>
+            <MapControls.BottomRight>
+              <div className={`dual-map-page__info-box-seoul ${styles.dualMapPageInfoBoxSeoul}`}>
+                서울
+              </div>
+            </MapControls.BottomRight>
+          </MapControls>
         </MapViewer>
       </div>
 
@@ -55,6 +71,21 @@ export function DualMapPage() {
           <DeckGLOverlay>
             <WeatherLayer data={busanWeather} layerType="scatterplot" />
           </DeckGLOverlay>
+          <MapControls>
+            <MapControls.BottomLeft>
+              <button
+                className={`dual-map-page__control-button ${styles.dualMapPageControlButton}`}
+                onClick={() => console.log('부산 지도 리셋')}
+              >
+                🔄 리셋
+              </button>
+            </MapControls.BottomLeft>
+            <MapControls.BottomRight>
+              <div className={`dual-map-page__info-box-busan ${styles.dualMapPageInfoBoxBusan}`}>
+                부산
+              </div>
+            </MapControls.BottomRight>
+          </MapControls>
         </MapViewer>
       </div>
     </div>

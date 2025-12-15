@@ -330,6 +330,7 @@ npm install --save-dev @luma.gl/core
 - Files: `*.css.ts`
 - Type-safe styles with TypeScript
 - CSS properties auto-sorted with `prettier-plugin-css-order`
+- Even if you use vanilla-extract, please write semantic class names for easier debugging.
 
 ### Environment Variables
 Prefix with `VITE_` to expose to client:

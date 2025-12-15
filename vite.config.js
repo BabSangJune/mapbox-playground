@@ -77,18 +77,12 @@ export default defineConfig({
           }
 
           // 스타일 관련
-          if (
-            id.includes('node_modules/@vanilla-extract') ||
-            id.includes('node_modules/clsx')
-          ) {
+          if (id.includes('node_modules/@vanilla-extract') || id.includes('node_modules/clsx')) {
             return 'style-vendor';
           }
 
           // Mapbox 관련 (추가)
-          if (
-            id.includes('node_modules/mapbox-gl') ||
-            id.includes('node_modules/react-map-gl')
-          ) {
+          if (id.includes('node_modules/mapbox-gl') || id.includes('node_modules/react-map-gl')) {
             return 'mapbox-vendor';
           }
 

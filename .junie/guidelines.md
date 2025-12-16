@@ -255,9 +255,10 @@ Use rbush spatial indexing to load only visible data:
 
 ### Naming Conventions
 - **Components**: PascalCase (`WeatherMap.jsx`)
-- **Files**: kebab-case (`weather-map.jsx`, `use-weather-data.js`)
+- **Files**: camelCase (`weatherMap.jsx`, `useWeatherData.js`)
 - **Hooks**: `use` prefix (`useWeatherData`, `useMapViewport`)
 - **Constants**: UPPER_SNAKE_CASE (`API_BASE_URL`)
+- **Directories**: kebab-case (`weather-map`, `map-controls`)
 
 ### Formatting (Prettier)
 ```javascript

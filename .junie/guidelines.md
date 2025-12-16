@@ -331,6 +331,8 @@ npm install --save-dev @luma.gl/core
 - Type-safe styles with TypeScript
 - CSS properties auto-sorted with `prettier-plugin-css-order`
 - Even if you use vanilla-extract, please write semantic class names for easier debugging.
+- design token files are located in `src/shared/styles/tokens/`
+- typography styles are located in `src/shared/styles/typography/`
 
 ### Environment Variables
 Prefix with `VITE_` to expose to client:

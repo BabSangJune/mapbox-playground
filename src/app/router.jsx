@@ -6,10 +6,14 @@ import {
   Outlet,
 } from '@tanstack/react-router';
 
-import * as styles from './router.css';
+import { DualMapPage } from '@/pages/dual-map';
+import { HomePage } from '@/pages/home';
+import { WeatherMapPage } from '@/pages/weather-map';
 
-import { HomePage, WeatherMapPage, DualMapPage } from '@/pages';
-import { Header, Sidebar } from '@/widgets';
+import { Header } from '@/widgets/header';
+import { Sidebar } from '@/widgets/sidebar';
+
+import * as styles from './router.css';
 
 // Root Route with Layout
 const rootRoute = createRootRoute({

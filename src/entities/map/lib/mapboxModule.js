@@ -1,5 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 
+import { CONFIG } from '@/shared/config/environment';
+
 /**
  * Mapbox GL 지도를 초기화하고 관리하는 모듈
  * deck.gl과 독립적으로 Mapbox 관련 로직만 처리합니다
@@ -23,10 +25,10 @@ export const mapboxModule = {
 
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: options.style || 'mapbox://styles/lab021/cm0kdqjna001f01r52j0c6lx1',
+      style: options.style || CONFIG.MAPBOX.STYLE,
       center: options.center || [0, 0],
       zoom: options.zoom || 10,
-      accessToken: import.meta.env.VITE_MAPBOX_TOKEN,
+      accessToken: CONFIG.MAPBOX.TOKEN,
       ...options,
     });
 

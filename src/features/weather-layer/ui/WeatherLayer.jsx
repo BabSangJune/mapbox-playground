@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
-import { useDeckGL } from '@/widgets/deckgl-overlay';
-
 import { deckglModule } from '@/entities/map';
 import { weatherLayerFactory } from '@/entities/weather';
+
+import { useDeckGL } from '@/shared/lib/context/deckgl-context';
 
 /**
  * 날씨 데이터를 deck.gl 레이어로 시각화하는 컴포넌트
@@ -18,10 +18,10 @@ import { weatherLayerFactory } from '@/entities/weather';
  * @param {Function} props.onHover - 호버 이벤트 핸들러 (선택)
  */
 export function WeatherLayer({ data, layerType = 'scatterplot', onHover }) {
-  const { deckOverlay, isLoaded } = useDeckGL();
+  const { deckGLOverlay, isLoaded } = useDeckGL();
 
   useEffect(() => {
-    if (!deckOverlay || !isLoaded || !data) return;
+    if (!deckGLOverlay || !isLoaded || !data) return;
 
     // weatherLayerFactory를 사용하여 레이어 생성
     const layers = weatherLayerFactory.createWeatherLayers({
@@ -31,12 +31,12 @@ export function WeatherLayer({ data, layerType = 'scatterplot', onHover }) {
     });
 
     // deckglModule을 사용하여 레이어 업데이트
-    deckglModule.updateLayers(deckOverlay, layers);
+    deckglModule.updateLayers(deckGLOverlay, layers);
 
     return () => {
-      deckglModule.updateLayers(deckOverlay, []);
+      deckglModule.updateLayers(deckGLOverlay, []);
     };
-  }, [deckOverlay, isLoaded, data, layerType, onHover]);
+  }, [deckGLOverlay, isLoaded, data, layerType, onHover]);
 
   return null;
 }

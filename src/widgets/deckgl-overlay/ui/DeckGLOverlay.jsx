@@ -15,14 +15,14 @@ import { useMap } from '@/shared/lib/context/map-context';
  */
 export function DeckGLOverlay({ children, options = {} }) {
   const { map, isLoaded: mapLoaded } = useMap();
-  const deckRef = useRef(null);
+  const deckGLRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (!map?.current || !mapLoaded || deckRef.current) return;
+    if (!map?.current || !mapLoaded || deckGLRef.current) return;
 
     // deck.gl 오버레이 초기화
-    deckglModule.initOverlay(map.current, deckRef, {
+    deckglModule.initOverlay(map.current, deckGLRef, {
       interleaved: true,
       ...options,
     });
@@ -30,13 +30,13 @@ export function DeckGLOverlay({ children, options = {} }) {
     setIsLoaded(true);
 
     return () => {
-      deckglModule.cleanup(deckRef);
+      deckglModule.cleanup(deckGLRef);
       setIsLoaded(false);
     };
   }, [map, mapLoaded, options]);
 
   return (
-    <DeckGLProvider deckOverlay={deckRef} isLoaded={isLoaded}>
+    <DeckGLProvider deckGLOverlay={deckGLRef} isLoaded={isLoaded}>
       {isLoaded && children}
     </DeckGLProvider>
   );

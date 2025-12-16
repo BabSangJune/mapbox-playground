@@ -22,11 +22,11 @@ export const useDeckGL = () => {
  * deck.gl Context Provider
  * @param {Object} props
  * @param {React.ReactNode} props.children - 자식 컴포넌트
- * @param {React.MutableRefObject} props.deckOverlay - deck.gl 오버레이 ref
+ * @param {React.MutableRefObject} props.deckGLOverlay - deck.gl 오버레이 ref
  * @param {boolean} props.isLoaded - deck.gl 오버레이 로딩 완료 여부
  */
-export function DeckGLProvider({ children, deckOverlay, isLoaded }) {
+export function DeckGLProvider({ children, deckGLOverlay, isLoaded }) {
   return (
-    <DeckGLContext.Provider value={{ deckOverlay, isLoaded }}>{children}</DeckGLContext.Provider>
+    <DeckGLContext.Provider value={{ deckGLOverlay, isLoaded }}>{children}</DeckGLContext.Provider>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { mapboxModule } from '@/entities/map';
 
-import { MapProvider } from '../lib/MapContext';
+import { MapProvider } from '@/shared/lib/context/map-context';
 
 import * as styles from './MapViewer.css';
 

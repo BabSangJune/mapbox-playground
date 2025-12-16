@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useMap } from '@/widgets/map-viewer';
-
 import { deckglModule } from '@/entities/map';
 
-import { DeckGLProvider } from '../lib/DeckGLContext';
+import { DeckGLProvider } from '@/shared/lib/context/deckgl-context';
+import { useMap } from '@/shared/lib/context/map-context';
 
 /**
  * deck.gl 오버레이를 Mapbox 지도 위에 추가하는 위젯

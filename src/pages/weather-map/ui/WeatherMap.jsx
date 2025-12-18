@@ -1,22 +1,24 @@
+// src/pages/weather-map/ui/WeatherMapPage.jsx
 import { DeckGLOverlay } from '@/widgets/deckgl-overlay';
 import { MapViewer } from '@/widgets/map-viewer';
 
-import { WeatherVisualization } from '@/features/weather-visualization';
-
-import * as styles from './WeatherMap.css';
+import { MapControls } from '@/features/map-controls';
+import { WeatherVisualization, WeatherTypeSelector } from '@/features/weather-visualization';
 
 export function WeatherMap() {
   return (
-    <div className={`weather-map-page ${styles.weatherMapPage}`}>
-      <MapViewer
-        options={{
-          center: [127.0, 37.5],
-        }}
-      >
+    <>
+      <MapViewer>
         <DeckGLOverlay>
           <WeatherVisualization />
         </DeckGLOverlay>
+
+        <MapControls>
+          <MapControls.TopRight>
+            <WeatherTypeSelector />
+          </MapControls.TopRight>
+        </MapControls>
       </MapViewer>
-    </div>
+    </>
   );
 }

@@ -1,1 +1,1 @@
-export { convertToWeatherLayersFormat } from './weatherDataConverer.js';
+export { convertToWeatherLayersFormat } from './weatherDataConverer';

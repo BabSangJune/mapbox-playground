@@ -2,34 +2,28 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
+import { getWeatherConfig } from '../config/weatherConfigs';
+
 export const useWeatherStore = create(
   immer((set) => ({
     // 현재 선택된 날씨 타입
     weatherType: 'wind',
+
+    // 현재 타입의 config
+    config: getWeatherConfig('wind'),
 
     // 변환된 날씨 데이터
     weatherData: null,
 
     // 로딩 상태
     isLoading: false,
-
-    // 에러
     error: null,
-
-    // ParticleLayer 설정
-    particleCount: 1500,
-    particleSpeed: 10,
-    particleOpacity: 0.3,
-    particleVisible: true,
-
-    // RasterLayer 설정
-    rasterOpacity: 1,
-    rasterVisible: true,
 
     // Actions
     setWeatherType: (type) =>
       set((state) => {
         state.weatherType = type;
+        state.config = getWeatherConfig(type);
       }),
 
     setWeatherData: (data) =>
@@ -45,36 +39,6 @@ export const useWeatherStore = create(
     setError: (error) =>
       set((state) => {
         state.error = error;
-      }),
-
-    setParticleCount: (count) =>
-      set((state) => {
-        state.particleCount = count;
-      }),
-
-    setParticleSpeed: (speed) =>
-      set((state) => {
-        state.particleSpeed = speed;
-      }),
-
-    setParticleOpacity: (opacity) =>
-      set((state) => {
-        state.particleOpacity = opacity;
-      }),
-
-    setParticleVisible: (visible) =>
-      set((state) => {
-        state.particleVisible = visible;
-      }),
-
-    setRasterVisible: (visible) =>
-      set((state) => {
-        state.rasterVisible = visible;
-      }),
-
-    setRasterOpacity: (opacity) =>
-      set((state) => {
-        state.rasterOpacity = opacity;
       }),
   })),
 );

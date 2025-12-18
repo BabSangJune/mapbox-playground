@@ -17,12 +17,7 @@ export function WeatherVisualization() {
   const {
     weatherType,
     weatherData,
-    particleCount,
-    particleSpeed,
-    particleOpacity,
-    particleVisible,
-    rasterVisible,
-    rasterOpacity,
+    config, // 이것만 사용
     setWeatherData,
     setLoading,
     setError,
@@ -41,10 +36,7 @@ export function WeatherVisualization() {
         setError(null);
 
         const rawData = await fetchWeatherData(weatherType);
-        console.log('✅ Raw data loaded');
-
         const convertedData = convertToWeatherLayersFormat(rawData);
-        console.log('✅ Data converted');
 
         setWeatherData(convertedData);
       } catch (err) {
@@ -65,45 +57,39 @@ export function WeatherVisualization() {
       return;
     }
 
-    console.log('🎨 Creating layers');
+    console.log('🎨 Creating layers for:', weatherType);
 
     const newLayers = [];
 
     try {
-      // 1. RasterLayer - 바람 강도 색상 표현
-      if (rasterVisible) {
+      // RasterLayer
+      if (config.raster.defaultVisible) {
         const rasterLayer = new RasterLayer({
-          id: 'wind-magnitude-raster',
+          id: `${weatherType}-magnitude-raster`,
           image: weatherData.rasterImage,
           bounds: weatherData.bounds,
-          palette: [
-            [0, [30, 144, 255, 0]], // 0 m/s: 투명 파란색
-            [5, [135, 206, 250, 150]], // 5 m/s: 하늘색
-            [10, [50, 205, 50, 180]], // 10 m/s: 연두색
-            [15, [255, 255, 0, 200]], // 15 m/s: 노란색
-            [20, [255, 165, 0, 220]], // 20 m/s: 주황색
-            [25, [255, 69, 0, 240]], // 25 m/s: 빨간색
-            [30, [139, 0, 0, 255]], // 30+ m/s: 진한 빨간색
-          ],
-          opacity: rasterOpacity,
+          palette: config.raster.palette,
+          opacity: config.raster.opacity, // config에서 직접
           pickable: true,
         });
         newLayers.push(rasterLayer);
       }
 
-      // 2. ParticleLayer - 바람 방향 파티클 애니메이션
-      if (particleVisible) {
+      // ParticleLayer
+      if (config.particle.defaultVisible) {
+        console.log('config.particle.width', config.particle.width);
         const particleLayer = new ParticleLayer({
-          id: 'wind-particles',
+          id: `${weatherType}-particles`,
           image: weatherData.particleImage,
           bounds: weatherData.bounds,
           imageType: 'VECTOR',
-          numParticles: particleCount,
-          maxAge: 10,
-          speedFactor: particleSpeed,
-          color: [255, 255, 255],
-          opacity: particleOpacity,
-          width: 1,
+          numParticles: config.particle.numParticles, // config에서 직접
+          maxAge: config.particle.maxAge,
+          speedFactor: config.particle.speedFactor, // config에서 직접
+          color: config.particle.color,
+          opacity: config.particle.opacity, // config에서 직접
+          width: config.particle.width,
+          pickable: false,
         });
         newLayers.push(particleLayer);
       }
@@ -114,13 +100,9 @@ export function WeatherVisualization() {
       console.error('❌ Failed to create layers:', err);
     }
   }, [
+    weatherType,
     weatherData,
-    particleCount,
-    particleSpeed,
-    particleOpacity,
-    particleVisible,
-    rasterVisible,
-    rasterOpacity,
+    config, // config만 의존
   ]);
 
   // deck.gl에 레이어 적용

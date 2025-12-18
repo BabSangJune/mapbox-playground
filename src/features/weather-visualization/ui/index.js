@@ -1,2 +1,3 @@
 // src/features/weather-visualization/index.js
-export { WeatherVisualization } from './WeatherVisualization';
+export { WeatherVisualization } from './weather-visualization/WeatherVisualization';
+export { WeatherTypeSelector } from './weather-type-selector/WeatherTypeSelector';

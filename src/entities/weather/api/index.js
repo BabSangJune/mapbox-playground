@@ -1,1 +1,1 @@
-export { fetchWeatherData } from './weatherApi.js';
+export { fetchWeatherData } from './weatherApi';

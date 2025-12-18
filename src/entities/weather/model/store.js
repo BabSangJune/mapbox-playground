@@ -5,7 +5,7 @@ import { immer } from 'zustand/middleware/immer';
 import { WEATHER_CONFIGS } from '../config/weatherConfigs';
 
 const initialState = {
-  weatherType: 'wind',
+  weatherType: 'null',
   config: WEATHER_CONFIGS,
   weatherData: null,
   airPressureEnabled: false,

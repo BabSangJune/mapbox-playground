@@ -1,7 +1,7 @@
 // src/features/weather-visualization/ui/WeatherVisualization.jsx
 import { useEffect, useState } from 'react';
 
-import { ParticleLayer, RasterLayer, ContourLayer } from 'weatherlayers-gl';
+import { ParticleLayer, RasterLayer, ContourLayer, GridLayer } from 'weatherlayers-gl';
 
 import { deckglModule } from '@/entities/map';
 import {
@@ -107,6 +107,7 @@ export function WeatherVisualization() {
               palette: weatherConfig.raster.palette,
               opacity: weatherConfig.raster.opacity,
               pickable: true,
+              imageInterpolation: 'LINEAR',
             }),
           );
         }
@@ -126,12 +127,16 @@ export function WeatherVisualization() {
               opacity: weatherConfig.particle.opacity,
               width: weatherConfig.particle.width,
               pickable: false,
+              imageInterpolation: 'LINEAR',
             }),
           );
         }
       }
 
       // ⭐ Air Pressure 레이어 (독립적, 오버레이)
+      // src/features/weather-visualization/ui/WeatherVisualization.jsx
+
+      // ⭐ Air Pressure 레이어들
       if (airPressureEnabled && airPressureData?.rasterImage) {
         const pressureConfig = config.airpressure;
 
@@ -140,48 +145,61 @@ export function WeatherVisualization() {
           return;
         }
 
-        console.log('🌡️ Creating air pressure contour layer');
-        console.log('  - Value range:', airPressureData.valueRange);
-        console.log('  - Image type:', airPressureData.rasterImage.data.constructor.name);
+        const { min, max } = airPressureData.valueRange || {
+          min: pressureConfig.minPressure,
+          max: pressureConfig.maxPressure,
+        };
 
-        // ⭐ ContourLayer (등압선만)
+        console.log('🌡️ Creating air pressure layers');
 
-        if (pressureConfig.contour?.defaultVisible) {
-          const { min, max } = airPressureData.valueRange || {
-            min: pressureConfig.minPressure,
-            max: pressureConfig.maxPressure,
-          };
-
-          console.log('🌡️ Contour config:', {
-            min,
-            max,
-            dataType: airPressureData.rasterImage.data.constructor.name,
-            sampleValues: Array.from(airPressureData.rasterImage.data.slice(0, 10)),
-          });
-
+        // 1. ContourLayer (등압선) - Uint8 이미지 사용
+        if (pressureConfig.contour?.defaultVisible && airPressureData.contourImage) {
           newLayers.push(
             new ContourLayer({
               id: 'air-pressure-contour',
-              image: airPressureData.rasterImage,
+              image: airPressureData.contourImage, // ⭐ Uint8 이미지
               bounds: airPressureData.bounds,
 
-              // ⭐ Uint8 (0-255) → 실제 기압값 (980-1040) 매핑
-              imageUnscale: [min, max],
+              imageUnscale: [min, max], // Uint8 → 실제 값
 
-              // ⭐ 등압선 간격 설정
-              interval: 4, // 4 hPa 간격
-              majorInterval: 8, // 12 hPa마다 굵은 선
+              interval: 4,
+              majorInterval: 8,
 
-              // ⭐ 스타일
-              contourColor: [255, 255, 255, 200], // 흰색 등압선
-              majorContourColor: [255, 255, 255, 255], // 주요 등압선은 더 진하게
+              contourColor: [255, 255, 255, 200],
+              majorContourColor: [255, 255, 255, 255],
               strokeWidth: 1.5,
               majorStrokeWidth: 2.5,
 
               opacity: 0.8,
               pickable: true,
 
-              // ⭐ 렌더링 최적화
+              updateTriggers: {
+                image: airPressureData.contourImage.data,
+              },
+            }),
+          );
+        }
+
+        // 2. GridLayer (기압값 숫자) - Float32 이미지 사용
+        if (pressureConfig.grid?.defaultVisible) {
+          newLayers.push(
+            new GridLayer({
+              id: 'air-pressure-grid',
+              image: airPressureData.rasterImage, // ⭐ Float32 이미지 (실제 hPa 값)
+              bounds: airPressureData.bounds,
+
+              // ⭐ imageUnscale 제거 (이미 실제 값이므로)
+              // imageUnscale: [min, max],
+
+              density: 0,
+              textSize: 10,
+              textColor: [255, 255, 255, 255],
+              textOutlineWidth: 1,
+              textOutlineColor: [255, 255, 255, 255],
+
+              opacity: 1.0,
+              pickable: false,
+
               updateTriggers: {
                 image: airPressureData.rasterImage.data,
               },

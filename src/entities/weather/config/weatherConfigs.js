@@ -162,6 +162,19 @@ export const WEATHER_CONFIGS = {
       ],
     },
 
+    grid: {
+      defaultVisible: true,
+      gridSize: 5, // 5도 간격
+      fontSize: 12, // 폰트 크기
+      fontColor: [255, 255, 255, 255], // 흰색
+      fontOutlineColor: [0, 0, 0, 200], // 검정 외곽선
+      fontOutlineWidth: 2,
+      textAnchor: 'middle',
+      textAlignmentBaseline: 'center',
+      decimals: 0, // 소수점 없음
+      unitSymbol: '', // 단위 없음
+    },
+
     legend: {
       title: 'Air Pressure',
       unit: 'hPa',

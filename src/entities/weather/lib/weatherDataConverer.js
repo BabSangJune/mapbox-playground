@@ -100,6 +100,7 @@ export function convertToWeatherLayersFormat(rawData) {
   console.log('📊 Data type:', { isSST, isWave, isWind, isCurrent, isAirPressure, width, height });
 
   let interleavedData, magnitudeData, valueRange;
+  let contourImage = null; // ⭐ Contour 전용 이미지 (Uint8)
 
   if (isSST) {
     const temperature = data.temperature_sea_surface;
@@ -114,10 +115,13 @@ export function convertToWeatherLayersFormat(rawData) {
     const pressure = data.pressure_msl;
     const rearrangedPressure = rearrangeLongitude(pressure, width, height);
 
-    const minPressure = 980;
+    const minPressure = 900;
     const maxPressure = 1040;
 
-    // ⭐ width, height 파라미터 추가
+    // ⭐ Grid용: Float32 그대로 (실제 hPa 값)
+    magnitudeData = rearrangedPressure;
+
+    // ⭐ Contour용: Uint8 변환
     const uint8Pressure = normalizeToUint8(
       rearrangedPressure,
       width,
@@ -126,14 +130,18 @@ export function convertToWeatherLayersFormat(rawData) {
       maxPressure,
     );
 
+    contourImage = {
+      data: uint8Pressure,
+      width,
+      height,
+    };
+
     interleavedData = null;
-    magnitudeData = uint8Pressure;
     valueRange = { min: minPressure, max: maxPressure };
 
-    console.log('✅ Air Pressure data converted to Uint8');
-    console.log('  Sample values:', Array.from(uint8Pressure.slice(0, 20)));
-
-    console.log('✅ Air Pressure data converted to Uint8');
+    console.log('✅ Air Pressure data converted');
+    console.log('  - Grid data (Float32):', Array.from(rearrangedPressure.slice(0, 10)));
+    console.log('  - Contour data (Uint8):', Array.from(uint8Pressure.slice(0, 10)));
   } else if (isWave) {
     const waveHeight = data.siginificant_wave_height;
     const waveDirection = data.siginificant_wave_direction;
@@ -207,8 +215,9 @@ export function convertToWeatherLayersFormat(rawData) {
       width,
       height,
     },
+    contourImage, // ⭐ Contour 전용 이미지 추가
     bounds,
-    valueRange, // ⭐ 값 범위 추가
+    valueRange,
     metadata: {
       time: meta.time,
       variables: meta.variables,

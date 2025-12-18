@@ -6,9 +6,8 @@ import {
   Outlet,
 } from '@tanstack/react-router';
 
-import { DualMapPage } from '@/pages/dual-map';
 import { HomePage } from '@/pages/home';
-import { WeatherMapPage } from '@/pages/weather-map';
+import { WeatherMap } from '@/pages/weather-map';
 
 import { Header } from '@/widgets/header';
 import { Sidebar } from '@/widgets/sidebar';
@@ -39,18 +38,19 @@ const indexRoute = createRoute({
 const weatherMapRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/weather-map',
-  component: WeatherMapPage,
+  component: WeatherMap,
 });
 
 // Dual Map Route
-const dualMapRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/dual-map',
-  component: DualMapPage,
-});
+// const dualMapRoute = createRoute({
+//   getParentRoute: () => rootRoute,
+//   path: '/dual-map',
+//   component: DualMapPage,
+// });
 
 // Route Tree
-const routeTree = rootRoute.addChildren([indexRoute, weatherMapRoute, dualMapRoute]);
+// const routeTree = rootRoute.addChildren([indexRoute, weatherMapRoute, dualMapRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, weatherMapRoute]);
 
 // Router Instance
 const router = createRouter({ routeTree });

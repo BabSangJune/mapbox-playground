@@ -1,1 +1,1 @@
-export { WeatherMapPage } from './ui/WeatherMapPage';
+export { WeatherMap } from './ui/WeatherMap.jsx';

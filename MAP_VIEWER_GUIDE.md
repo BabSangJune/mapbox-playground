@@ -77,7 +77,7 @@ export function MyMapPage() {
 import { MapViewer } from '@/widgets/map-viewer';
 import { WeatherLayer } from '@/features/weather-layer';
 
-export function WeatherMapPage() {
+export function WeatherMap() {
   const weatherData = [
     { longitude: 126.978, latitude: 37.5665, temperature: 25, windSpeed: 5 },
     { longitude: 127.0, latitude: 37.6, temperature: 22, windSpeed: 8 },
@@ -182,14 +182,14 @@ deck.gl 레이어를 업데이트합니다.
 
 ## 예시
 
-### WeatherMapPage (현재 구현)
+### WeatherMap (현재 구현)
 
 ```javascript
 import { useState } from 'react';
 import { MapViewer } from '@/widgets/map-viewer';
 import { WeatherLayer } from '@/features/weather-layer';
 
-export function WeatherMapPage() {
+export function WeatherMap() {
   const [weatherData] = useState([
     { longitude: 126.978, latitude: 37.5665, temperature: 25, windSpeed: 5 },
     { longitude: 127.0, latitude: 37.6, temperature: 22, windSpeed: 8 },

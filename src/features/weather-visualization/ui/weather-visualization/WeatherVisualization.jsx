@@ -62,32 +62,31 @@ export function WeatherVisualization() {
     const newLayers = [];
 
     try {
-      // RasterLayer
+      // RasterLayer (모든 타입 공통)
       if (config.raster.defaultVisible) {
         const rasterLayer = new RasterLayer({
           id: `${weatherType}-magnitude-raster`,
           image: weatherData.rasterImage,
           bounds: weatherData.bounds,
           palette: config.raster.palette,
-          opacity: config.raster.opacity, // config에서 직접
+          opacity: config.raster.opacity,
           pickable: true,
         });
         newLayers.push(rasterLayer);
       }
 
-      // ParticleLayer
-      if (config.particle.defaultVisible) {
-        console.log('config.particle.width', config.particle.width);
+      // ParticleLayer (SST는 제외)
+      if (config.particle.defaultVisible && weatherData.particleImage) {
         const particleLayer = new ParticleLayer({
           id: `${weatherType}-particles`,
           image: weatherData.particleImage,
           bounds: weatherData.bounds,
           imageType: 'VECTOR',
-          numParticles: config.particle.numParticles, // config에서 직접
+          numParticles: config.particle.numParticles,
           maxAge: config.particle.maxAge,
-          speedFactor: config.particle.speedFactor, // config에서 직접
+          speedFactor: config.particle.speedFactor,
           color: config.particle.color,
-          opacity: config.particle.opacity, // config에서 직접
+          opacity: config.particle.opacity,
           width: config.particle.width,
           pickable: false,
         });
@@ -99,11 +98,7 @@ export function WeatherVisualization() {
     } catch (err) {
       console.error('❌ Failed to create layers:', err);
     }
-  }, [
-    weatherType,
-    weatherData,
-    config, // config만 의존
-  ]);
+  }, [weatherType, weatherData, config]);
 
   // deck.gl에 레이어 적용
   useEffect(() => {

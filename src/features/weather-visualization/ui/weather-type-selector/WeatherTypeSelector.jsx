@@ -22,6 +22,12 @@ const WEATHER_TYPES = [
     icon: '〰️',
     description: '파도',
   },
+  {
+    id: 'sst',
+    label: 'sst',
+    icon: '🌡️',
+    description: '파도',
+  },
 ];
 
 export function WeatherTypeSelector() {

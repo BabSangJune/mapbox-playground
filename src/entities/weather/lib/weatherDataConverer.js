@@ -33,6 +33,7 @@ export function convertToWeatherLayersFormat(rawData) {
   const totalPixels = width * height;
 
   // 데이터 타입 자동 감지
+  const isSST = data.temperature_sea_surface !== undefined;
   const isWave = data.siginificant_wave_height !== undefined;
   const isWind = data.wind_u !== undefined;
   const isCurrent = data.current_u !== undefined;
@@ -41,7 +42,17 @@ export function convertToWeatherLayersFormat(rawData) {
 
   let interleavedData, magnitudeData;
 
-  if (isWave) {
+  if (isSST) {
+    // ⭐ SST 처리 - 스칼라 값만
+    const temperature = data.temperature_sea_surface;
+    const rearrangedTemp = rearrangeLongitude(temperature, width, height);
+
+    // SST는 벡터가 없으므로 particleImage는 null
+    interleavedData = null;
+    magnitudeData = rearrangedTemp; // 온도 값 그대로 사용
+
+    console.log('✅ SST data converted');
+  } else if (isWave) {
     const waveHeight = data.siginificant_wave_height;
     const waveDirection = data.siginificant_wave_direction;
     const wavePeriod = data.siginificant_wave_period;

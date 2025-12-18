@@ -14,14 +14,7 @@ export default [
 
   // 전역 ignore
   {
-    ignores: [
-      'dist',
-      'build',
-      'node_modules',
-      'vite.config.js',
-      '*.config.js',
-      'eslint.config.js',
-    ],
+    ignores: ['dist', 'build', 'node_modules', 'vite.config.js', '*.config.js', 'eslint.config.js'],
   },
 
   // 메인 설정
@@ -44,10 +37,14 @@ export default [
 
     settings: {
       react: {
-        version: 'detect'
+        version: 'detect',
       },
       'import/resolver': {
         node: {
+          extensions: ['.js', '.jsx'],
+        },
+        alias: {
+          map: [['@', './src']],
           extensions: ['.js', '.jsx'],
         },
       },
@@ -80,17 +77,14 @@ export default [
       'react-hooks/exhaustive-deps': 'warn',
 
       // React Refresh
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
       // JavaScript 규칙 (TypeScript 규칙을 JavaScript용으로 변환)
       'no-unused-vars': [
         'warn',
         {
           argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_|^[A-Z_]' // 템플릿 버전 패턴 통합
+          varsIgnorePattern: '^_|^[A-Z_]', // 템플릿 버전 패턴 통합
         },
       ],
 
@@ -98,14 +92,7 @@ export default [
       'import/order': [
         'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-          ],
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
           pathGroups: [
             { pattern: 'react', group: 'external', position: 'before' },
             { pattern: '@/app/**', group: 'internal', position: 'after' },
@@ -118,6 +105,15 @@ export default [
           pathGroupsExcludedImportTypes: ['react'],
           'newlines-between': 'always',
           alphabetize: { order: 'asc', caseInsensitive: true },
+        },
+      ],
+
+      'import/extensions': [
+        'error',
+        'ignorePackages',
+        {
+          js: 'never',
+          jsx: 'never',
         },
       ],
 

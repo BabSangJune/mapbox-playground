@@ -27,6 +27,8 @@ export default defineConfig({
     }),
   ],
 
+  assetsInclude: ['**/*.glsl'],
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

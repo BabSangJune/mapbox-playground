@@ -16,10 +16,15 @@ export const useWeatherStore = create(
     // 에러
     error: null,
 
-    // 파티클 설정
+    // ParticleLayer 설정
     particleCount: 1500,
-    particleSpeed: 15,
-    particleOpacity: 0.5,
+    particleSpeed: 10,
+    particleOpacity: 0.3,
+    particleVisible: true,
+
+    // RasterLayer 설정
+    rasterOpacity: 1,
+    rasterVisible: true,
 
     // Actions
     setWeatherType: (type) =>
@@ -55,6 +60,21 @@ export const useWeatherStore = create(
     setParticleOpacity: (opacity) =>
       set((state) => {
         state.particleOpacity = opacity;
+      }),
+
+    setParticleVisible: (visible) =>
+      set((state) => {
+        state.particleVisible = visible;
+      }),
+
+    setRasterVisible: (visible) =>
+      set((state) => {
+        state.rasterVisible = visible;
+      }),
+
+    setRasterOpacity: (opacity) =>
+      set((state) => {
+        state.rasterOpacity = opacity;
       }),
   })),
 );

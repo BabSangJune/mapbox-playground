@@ -1,7 +1,7 @@
 // src/features/weather-visualization/ui/WeatherVisualization.jsx
 import { useEffect, useState } from 'react';
 
-import { ParticleLayer } from 'weatherlayers-gl';
+import { ParticleLayer, RasterLayer } from 'weatherlayers-gl';
 
 import { deckglModule } from '@/entities/map';
 import {
@@ -20,6 +20,9 @@ export function WeatherVisualization() {
     particleCount,
     particleSpeed,
     particleOpacity,
+    particleVisible,
+    rasterVisible,
+    rasterOpacity,
     setWeatherData,
     setLoading,
     setError,
@@ -57,39 +60,68 @@ export function WeatherVisualization() {
 
   // WeatherLayers GL 레이어 생성
   useEffect(() => {
-    if (!weatherData?.image) {
+    if (!weatherData?.particleImage || !weatherData?.rasterImage) {
       setLayers([]);
       return;
     }
 
-    console.log('🎨 Creating ParticleLayer with data:', {
-      width: weatherData.image.width,
-      height: weatherData.image.height,
-      dataLength: weatherData.image.data.length,
-      bounds: weatherData.bounds,
-    });
+    console.log('🎨 Creating layers');
+
+    const newLayers = [];
 
     try {
-      const particleLayer = new ParticleLayer({
-        id: 'weather-particles',
-        image: weatherData.image,
-        bounds: weatherData.bounds,
-        imageType: 'VECTOR', // ✅ 벡터 데이터임을 명시
-        numParticles: particleCount,
-        maxAge: 10,
-        speedFactor: particleSpeed,
-        color: [255, 255, 255],
-        opacity: particleOpacity,
-        width: 1.5,
-        pickable: false,
-      });
+      // 1. RasterLayer - 바람 강도 색상 표현
+      if (rasterVisible) {
+        const rasterLayer = new RasterLayer({
+          id: 'wind-magnitude-raster',
+          image: weatherData.rasterImage,
+          bounds: weatherData.bounds,
+          palette: [
+            [0, [30, 144, 255, 0]], // 0 m/s: 투명 파란색
+            [5, [135, 206, 250, 150]], // 5 m/s: 하늘색
+            [10, [50, 205, 50, 180]], // 10 m/s: 연두색
+            [15, [255, 255, 0, 200]], // 15 m/s: 노란색
+            [20, [255, 165, 0, 220]], // 20 m/s: 주황색
+            [25, [255, 69, 0, 240]], // 25 m/s: 빨간색
+            [30, [139, 0, 0, 255]], // 30+ m/s: 진한 빨간색
+          ],
+          opacity: rasterOpacity,
+          pickable: true,
+        });
+        newLayers.push(rasterLayer);
+      }
 
-      console.log('✅ ParticleLayer created successfully');
-      setLayers([particleLayer]);
+      // 2. ParticleLayer - 바람 방향 파티클 애니메이션
+      if (particleVisible) {
+        const particleLayer = new ParticleLayer({
+          id: 'wind-particles',
+          image: weatherData.particleImage,
+          bounds: weatherData.bounds,
+          imageType: 'VECTOR',
+          numParticles: particleCount,
+          maxAge: 10,
+          speedFactor: particleSpeed,
+          color: [255, 255, 255],
+          opacity: particleOpacity,
+          width: 1,
+        });
+        newLayers.push(particleLayer);
+      }
+
+      console.log('✅ Layers created:', newLayers.length);
+      setLayers(newLayers);
     } catch (err) {
-      console.error('❌ Failed to create ParticleLayer:', err);
+      console.error('❌ Failed to create layers:', err);
     }
-  }, [weatherData, particleCount, particleSpeed, particleOpacity]);
+  }, [
+    weatherData,
+    particleCount,
+    particleSpeed,
+    particleOpacity,
+    particleVisible,
+    rasterVisible,
+    rasterOpacity,
+  ]);
 
   // deck.gl에 레이어 적용
   useEffect(() => {

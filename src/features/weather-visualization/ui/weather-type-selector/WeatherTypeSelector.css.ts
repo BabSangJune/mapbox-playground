@@ -2,64 +2,109 @@
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  background: 'rgba(255, 255, 255, 0.95)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
+  padding: '16px',
+  backgroundColor: 'white',
   borderRadius: '8px',
-  padding: '12px',
-  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-  backdropFilter: 'blur(10px)',
-  minWidth: '160px',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
 });
 
 export const label = style({
-  fontSize: '12px',
+  fontSize: '14px',
   fontWeight: '600',
-  color: '#666',
+  color: '#333',
   marginBottom: '8px',
-  display: 'block',
-  textTransform: 'uppercase',
-  letterSpacing: '0.5px',
 });
 
 export const buttonGroup = style({
   display: 'flex',
-  flexDirection: 'column',
-  gap: '6px',
+  gap: '8px',
+  flexWrap: 'wrap',
 });
 
 export const button = style({
-  padding: '8px 16px',
-  border: '1px solid #ddd',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '6px',
+  padding: '10px 16px',
+  border: '2px solid #e0e0e0',
   borderRadius: '6px',
-  background: 'white',
+  backgroundColor: 'white',
   cursor: 'pointer',
   fontSize: '14px',
   fontWeight: '500',
-  color: '#333',
+  color: '#666',
   transition: 'all 0.2s ease',
-  textAlign: 'left',
 
   ':hover': {
-    background: '#f5f5f5',
-    borderColor: '#0066cc',
-  },
-
-  ':active': {
-    transform: 'scale(0.98)',
+    borderColor: '#3b82f6',
+    backgroundColor: '#f0f9ff',
+    color: '#3b82f6',
   },
 });
 
 export const buttonActive = style({
-  background: '#0066cc',
+  borderColor: '#3b82f6',
+  backgroundColor: '#3b82f6',
   color: 'white',
-  borderColor: '#0066cc',
 
   ':hover': {
-    background: '#0052a3',
-    borderColor: '#0052a3',
+    backgroundColor: '#2563eb',
+    borderColor: '#2563eb',
   },
 });
 
 export const icon = style({
-  marginRight: '8px',
-  fontSize: '16px',
+  fontSize: '18px',
+});
+
+// ⭐ Air Pressure Overlay 스타일
+export const overlaySection = style({
+  paddingTop: '12px',
+  borderTop: '1px solid #e0e0e0',
+});
+
+export const toggleButton = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  padding: '10px 16px',
+  width: '100%',
+  border: '2px dashed #e0e0e0',
+  borderRadius: '6px',
+  backgroundColor: 'white',
+  cursor: 'pointer',
+  fontSize: '14px',
+  fontWeight: '500',
+  color: '#666',
+  transition: 'all 0.2s ease',
+
+  ':hover': {
+    borderColor: '#8b5cf6',
+    backgroundColor: '#faf5ff',
+    color: '#8b5cf6',
+  },
+});
+
+export const toggleActive = style({
+  borderStyle: 'solid',
+  borderColor: '#8b5cf6',
+  backgroundColor: '#8b5cf6',
+  color: 'white',
+
+  ':hover': {
+    backgroundColor: '#7c3aed',
+    borderColor: '#7c3aed',
+  },
+});
+
+export const badge = style({
+  marginLeft: 'auto',
+  padding: '2px 8px',
+  fontSize: '11px',
+  fontWeight: '600',
+  backgroundColor: 'rgba(255, 255, 255, 0.3)',
+  borderRadius: '4px',
 });

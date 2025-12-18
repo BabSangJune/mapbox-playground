@@ -141,6 +141,32 @@ export const WEATHER_CONFIGS = {
       steps: [-2, 0, 5, 10, 15, 20, 25, 30, 35],
     },
   },
+
+  airpressure: {
+    dataFile: 'v2-airpressure-1200.json',
+    variable: 'pressure_msl',
+    // minPressure: 980,
+    // maxPressure: 1040,
+
+    contour: {
+      defaultVisible: true,
+      lineWidth: 2,
+      colors: [
+        { value: 980, color: [0, 0, 139, 255] }, // 매우 낮음
+        { value: 992, color: [30, 144, 255, 255] }, // 낮음
+        { value: 1000, color: [100, 150, 255, 200] }, // 약간 낮음
+        { value: 1013, color: [200, 200, 200, 150] }, // 표준 기압
+        { value: 1020, color: [255, 200, 100, 200] }, // 약간 높음
+        { value: 1028, color: [255, 100, 0, 255] }, // 높음
+        { value: 1040, color: [200, 0, 0, 255] }, // 매우 높음
+      ],
+    },
+
+    legend: {
+      title: 'Air Pressure',
+      unit: 'hPa',
+    },
+  },
 };
 
 /**

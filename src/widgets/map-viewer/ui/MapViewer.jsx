@@ -38,7 +38,7 @@ export function MapViewer({ children, options = {} }) {
       mapboxModule.cleanup(mapRef);
       setIsLoaded(false);
     };
-  }, []);
+  }, [options]);
 
   return (
     <MapProvider map={mapRef} isLoaded={isLoaded}>

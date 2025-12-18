@@ -1,1 +1,1 @@
-export { MapProvider, useMap } from './MapContext.jsx';
+export { MapProvider, useMap } from './MapContext';

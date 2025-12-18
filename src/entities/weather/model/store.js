@@ -2,12 +2,14 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { getWeatherConfig } from '../config/weatherConfigs';
+import { WEATHER_CONFIGS } from '../config/weatherConfigs';
 
 const initialState = {
   weatherType: 'wind',
-  config: getWeatherConfig('wind'),
+  config: WEATHER_CONFIGS,
   weatherData: null,
+  airPressureEnabled: false,
+  airPressureData: null,
   isLoading: false,
   error: null,
 };
@@ -20,13 +22,19 @@ export const useWeatherStore = create(
     setWeatherType: (type) =>
       set((state) => {
         state.weatherType = type;
-        state.config = getWeatherConfig(type);
       }),
 
     setWeatherData: (data) =>
       set((state) => {
         state.weatherData = data;
       }),
+
+    toggleAirPressure: () =>
+      set((state) => ({
+        airPressureEnabled: !state.airPressureEnabled,
+      })),
+
+    setAirPressureData: (data) => set({ airPressureData: data }),
 
     setLoading: (loading) =>
       set((state) => {

@@ -1,1 +1,1 @@
-export { useWeatherStore } from './store.js';
+export { useWeatherStore } from './store';

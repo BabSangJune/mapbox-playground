@@ -107,7 +107,9 @@ export function WeatherVisualization() {
               palette: weatherConfig.raster.palette,
               opacity: weatherConfig.raster.opacity,
               pickable: true,
+              imageSmoothing: 2,
               imageInterpolation: 'LINEAR',
+              beforeId: `weather-empty-layer`,
             }),
           );
         }
@@ -127,7 +129,9 @@ export function WeatherVisualization() {
               opacity: weatherConfig.particle.opacity,
               width: weatherConfig.particle.width,
               pickable: false,
+              imageSmoothing: 2,
               imageInterpolation: 'LINEAR',
+              beforeId: `weather-empty-layer`,
             }),
           );
         }
@@ -159,20 +163,16 @@ export function WeatherVisualization() {
               id: 'air-pressure-contour',
               image: airPressureData.contourImage, // ⭐ Uint8 이미지
               bounds: airPressureData.bounds,
-
+              imageSmoothing: 3,
               imageUnscale: [min, max], // Uint8 → 실제 값
-
               interval: 4,
               majorInterval: 8,
-
               contourColor: [255, 255, 255, 200],
               majorContourColor: [255, 255, 255, 255],
               strokeWidth: 1.5,
               majorStrokeWidth: 2.5,
-
               opacity: 0.8,
               pickable: true,
-
               updateTriggers: {
                 image: airPressureData.contourImage.data,
               },
@@ -187,19 +187,13 @@ export function WeatherVisualization() {
               id: 'air-pressure-grid',
               image: airPressureData.rasterImage, // ⭐ Float32 이미지 (실제 hPa 값)
               bounds: airPressureData.bounds,
-
-              // ⭐ imageUnscale 제거 (이미 실제 값이므로)
-              // imageUnscale: [min, max],
-
               density: 0,
               textSize: 10,
               textColor: [255, 255, 255, 255],
               textOutlineWidth: 1,
               textOutlineColor: [255, 255, 255, 255],
-
               opacity: 1.0,
               pickable: false,
-
               updateTriggers: {
                 image: airPressureData.rasterImage.data,
               },

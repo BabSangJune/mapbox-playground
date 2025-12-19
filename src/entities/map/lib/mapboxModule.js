@@ -29,6 +29,7 @@ export const mapboxModule = {
       center: options.center || [0, 0],
       zoom: options.zoom || 10,
       accessToken: CONFIG.MAPBOX.TOKEN,
+      attributionControl: false,
       ...options,
     });
 

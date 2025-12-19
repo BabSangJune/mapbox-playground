@@ -20,7 +20,7 @@ export const deckglModule = {
     }
 
     const deckOverlay = new MapboxOverlay({
-      interleaved: options.interleaved !== false, // 기본값: true
+      interleaved: options.interleaved !== true, // 기본값: true
       layers: [],
       ...options,
     });

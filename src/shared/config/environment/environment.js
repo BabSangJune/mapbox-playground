@@ -5,7 +5,7 @@
 export const CONFIG = {
   MAPBOX: {
     TOKEN: import.meta.env.VITE_MAPBOX_TOKEN || '',
-    STYLE: 'mapbox://styles/lab021/cm0kdqjna001f01r52j0c6lx1',
+    STYLE: 'mapbox://styles/lab021/ckewgpi550q6q19qdoabjwcnz',
   },
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
   API_TOKEN: import.meta.env.VITE_API_TOKEN || '',

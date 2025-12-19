@@ -1,1 +1,1 @@
-export { fetchWeatherData } from './weatherApi';
+export { useWeatherDataQuery, useAirPressureQuery } from './weatherDataQuery';

@@ -1,1 +1,1 @@
-export { axiosClient } from './axiosClient';
+export { axiosClient, localDataClient } from './axiosClient';

@@ -27,7 +27,7 @@ export const mapboxModule = {
       container: containerRef.current,
       style: options.style || CONFIG.MAPBOX.STYLE,
       center: options.center || [0, 0],
-      zoom: options.zoom || 10,
+      zoom: options.zoom || 2,
       accessToken: CONFIG.MAPBOX.TOKEN,
       attributionControl: false,
       ...options,

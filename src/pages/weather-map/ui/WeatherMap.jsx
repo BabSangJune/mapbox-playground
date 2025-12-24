@@ -1,9 +1,13 @@
-// src/pages/weather-map/ui/WeatherMapPage.jsx
+// src/pages/weather-map/ui/WeatherMap.jsx
 import { DeckGLOverlay } from '@/widgets/deckgl-overlay';
 import { MapViewer } from '@/widgets/map-viewer';
 
 import { MapControls } from '@/features/map-controls';
-import { WeatherVisualization, WeatherTypeSelector } from '@/features/weather-visualization';
+import {
+  WeatherVisualization,
+  WeatherTypeSelector,
+  CycloneController, // 🆕
+} from '@/features/weather-visualization';
 
 export function WeatherMap() {
   return (
@@ -17,6 +21,10 @@ export function WeatherMap() {
           <MapControls.TopRight>
             <WeatherTypeSelector />
           </MapControls.TopRight>
+
+          <MapControls.BottomRight>
+            <CycloneController />
+          </MapControls.BottomRight>
         </MapControls>
       </MapViewer>
     </>

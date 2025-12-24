@@ -1,1 +1,2 @@
-export { convertToWeatherLayersFormat } from './weatherDataConverer';
+export { convertToWeatherLayersFormat } from './weatherDataConverter';
+export { convertCycloneData } from './cycloneDataConverter';

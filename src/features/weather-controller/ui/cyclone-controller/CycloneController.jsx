@@ -2,7 +2,7 @@
 import { useWeatherStore } from '@/entities/weather';
 import { useCycloneDataQuery } from '@/entities/weather/api';
 
-import * as styles from './CycloneController.css';
+import * as styles from './CycloneController.css.ts';
 
 export function CycloneController() {
   const {

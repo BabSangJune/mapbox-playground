@@ -1,7 +1,7 @@
 // src/features/weather-visualization/ui/WeatherTypeSelector.jsx
 import { useWeatherStore } from '@/entities/weather';
 
-import * as styles from './WeatherTypeSelector.css';
+import * as styles from './WeatherTypeSelector.css.ts';
 
 const WEATHER_TYPES = [
   {

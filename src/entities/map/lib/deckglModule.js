@@ -1,4 +1,5 @@
 import { MapboxOverlay } from '@deck.gl/mapbox';
+import { webgpuAdapter } from '@luma.gl/webgpu';
 
 /**
  * deck.gl 오버레이를 초기화하고 관리하는 모듈
@@ -22,6 +23,10 @@ export const deckglModule = {
     const deckOverlay = new MapboxOverlay({
       interleaved: options.interleaved !== true, // 기본값: true
       layers: [],
+      deviceProps: {
+        type: 'webgpu',
+        adapters: [webgpuAdapter],
+      },
       ...options,
     });
 
